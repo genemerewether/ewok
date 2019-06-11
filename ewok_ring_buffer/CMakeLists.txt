@@ -14,11 +14,11 @@ include_directories(${EIGEN3_INCLUDE_DIR} ${OCTOMAP_INCLUDE_DIRS})
 
 catkin_simple()
 
-cs_add_executable(ring_buffer_example src/ring_buffer_example.cpp)
-cs_add_executable(tum_rgbd_ring_buffer_example src/tum_rgbd_ring_buffer_example.cpp)
-target_link_libraries(tum_rgbd_ring_buffer_example ${OCTOMAP_LIBRARIES})
+#cs_add_executable(ring_buffer_example src/ring_buffer_example.cpp)
+#cs_add_executable(tum_rgbd_ring_buffer_example src/tum_rgbd_ring_buffer_example.cpp)
+#target_link_libraries(tum_rgbd_ring_buffer_example ${OCTOMAP_LIBRARIES})
 
-catkin_add_gtest(test_ring_buffer_base test/ring-buffer-base-test.cpp)
+#catkin_add_gtest(test_ring_buffer_base test/ring-buffer-base-test.cpp)
 
 cs_install()
 cs_export()
