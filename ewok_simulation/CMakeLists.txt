@@ -13,9 +13,12 @@ include_directories(${EIGEN3_INCLUDE_DIR} ${CHOLMOD_INCLUDE_DIR})
 
 catkin_simple()
 
-cs_add_executable(bspline_lee_position_controller_node src/bspline_lee_position_controller_node.cpp)
+#cs_add_executable(bspline_lee_position_controller_node src/bspline_lee_position_controller_node.cpp)
 cs_add_executable(trajectory_replanning_example src/trajectory_replanning_example.cpp)
 target_link_libraries(trajectory_replanning_example ${CHOLMOD_LIBRARY} nlopt)
+
+cs_add_executable(quest_example src/quest_example.cpp)
+target_link_libraries(quest_example ${CHOLMOD_LIBRARY} nlopt)
 
 cs_install()
 cs_export()

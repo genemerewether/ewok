@@ -4,3 +4,5 @@ ewok_ring_buffer/benchmarking/*
 !ewok_ring_buffer/benchmarking/make_plots.py
 ewok_simulation/benchmarking/*
 !ewok_simulation/benchmarking/compute_mean_time.py
+
+*~

@@ -184,6 +184,7 @@ class RingBufferBase {
                        const std::string &ns, int id, const Vector4 &color,
                        F func) {
       m.header.frame_id = "world";
+      m.header.stamp = ros::Time::now();
       m.ns = ns;
       m.id = id;
       m.type = visualization_msgs::Marker::CUBE_LIST;
