@@ -49,8 +49,6 @@
   <build_depend>mav_msgs</build_depend>
 
   <build_depend>tf</build_depend>
-  <build_depend>tf_conversions</build_depend>
-  <build_depend>eigen_conversions</build_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

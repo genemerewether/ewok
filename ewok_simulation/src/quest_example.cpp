@@ -28,8 +28,6 @@
 #include <map>
 
 #include <Eigen/Core>
-#include <mav_msgs/conversions.h>
-#include <mav_msgs/default_topics.h>
 #include <ros/ros.h>
 #include <ros/package.h>
 #include <std_srvs/Empty.h>
@@ -37,7 +35,6 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/point_cloud2_iterator.h>
 #include <tf/transform_listener.h>
-#include <tf_conversions/tf_eigen.h>
 #include <tf/message_filter.h>
 #include <message_filters/subscriber.h>
 #include <trajectory_msgs/MultiDOFJointTrajectory.h>
@@ -86,7 +83,17 @@ void pointCloudCallback(const sensor_msgs::PointCloud2::ConstPtr& msg)
 
 
     Eigen::Affine3d dT_w_c;
-    tf::transformTFToEigen(transform, dT_w_c);
+    for(int i=0; i<3; i++) {
+        dT_w_c.matrix()(i,3) = transform.getOrigin()[i];
+        for(int j=0; j<3; j++) {
+            dT_w_c.matrix()(i,j) = transform.getBasis()[i][j];
+        }
+    }
+    // Fill in identity in last row
+    for (int col = 0 ; col < 3; col ++)
+      dT_w_c.matrix()(3, col) = 0;
+    dT_w_c.matrix()(3,3) = 1;
+    //tf::transformTFToEigen(transform, dT_w_c);
 
     Eigen::Affine3f T_w_c = dT_w_c.cast<float>();
 
@@ -236,7 +243,7 @@ int main(int argc, char** argv){
     point_cloud_sub_.subscribe(nh, "pointcloud_0", 5);
 
     tf::MessageFilter<sensor_msgs::PointCloud2> tf_filter_(point_cloud_sub_, *listener, "world", 5);
-    tf_filter_.registerCallback(pointCloudCallback);
+    tf_filter_.registerCallback(boost::bind(pointCloudCallback,_1));
 
 
     double max_velocity, max_acceleration;
